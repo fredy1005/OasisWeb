@@ -1,2 +1,3 @@
-# PrimerVersionOasisweb
-Primera version de la app web de el Hogar Oasis de Vida
+# Hogar Oasis de Vida
+ **Autor** : Luchia Hugo Rodriguez
+
