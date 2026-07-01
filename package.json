@@ -1,0 +1,16 @@
+{
+  "name": "hogar-geriatrico",
+  "private": true,
+  "workspaces": [
+    "apps/web",
+    "apps/api"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "dev:web": "npm run dev -w apps/web",
+    "dev:api": "npm run dev -w apps/api",
+    "build:web": "npm run build -w apps/web",
+    "build:api": "npm run build -w apps/api"
+  }
+}
