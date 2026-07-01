@@ -1,3 +1,5 @@
+import { Reveal } from './Reveal'
+
 const servicios = [
   {
     title: 'Enfermería 24h',
@@ -60,20 +62,23 @@ export function Servicios() {
   return (
     <section id="servicios" className="bg-cream">
       <div className="container-section">
-        <h2 className="section-title">Servicios y cuidados</h2>
-        <p className="section-subtitle">Todo lo que ofrecemos para que tu familiar esté en las mejores manos.</p>
+        <Reveal>
+          <p className="eyebrow">Cuidado integral</p>
+          <h2 className="section-title">Servicios y cuidados</h2>
+          <p className="section-subtitle">Todo lo que ofrecemos para que tu familiar esté en las mejores manos.</p>
+        </Reveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {servicios.map((s) => (
-            <div
-              key={s.title}
-              className="bg-white p-6 rounded-xl border border-sage-100 hover:border-sage-300 transition-colors hover:shadow-md"
-            >
-              <div className="text-sage-500 mb-4">
-                {s.icon}
+          {servicios.map((s, i) => (
+            <Reveal key={s.title} delay={Math.min(i * 0.08, 0.4)}>
+              <div className="group h-full bg-white p-6 rounded-xl border border-sage-100 hover:border-transparent card-hover relative overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sage-500 to-gold-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+                <div className="icon-badge mb-4 text-sage-600 group-hover:text-gold-600 group-hover:scale-105 transition-all duration-300">
+                  {s.icon}
+                </div>
+                <h3 className="text-lg font-serif font-semibold text-sage-800 mb-2">{s.title}</h3>
+                <p className="text-sage-600/80 text-[16px]">{s.desc}</p>
               </div>
-              <h3 className="text-lg font-serif font-semibold text-sage-800 mb-2">{s.title}</h3>
-              <p className="text-sage-600/80 text-[16px]">{s.desc}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

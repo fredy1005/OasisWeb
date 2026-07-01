@@ -1,4 +1,5 @@
 import { Hero } from '@/components/Hero'
+import { Estadisticas } from '@/components/Estadisticas'
 import { Espacios } from '@/components/Espacios'
 import { Servicios } from '@/components/Servicios'
 import { UnDia } from '@/components/UnDia'
@@ -16,6 +17,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <Estadisticas />
         <Espacios />
         <Servicios />
         <UnDia />

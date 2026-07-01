@@ -35,7 +35,7 @@ hogar-geriatrico/
 ```
 
 **Decisiones:**
-- **npm workspaces** (simple, sin herramienta extra). Alternativa si crece: Turborepo o pnpm.
+- **npm workspaces** Turborepo o pnpm.
 - **Front:** Next.js App Router con SSR/ISR para SEO (clave en un negocio local).
 - **Back:** NestJS modular por dominio. Arranca con datos semilla en memoria → migrar a PostgreSQL (Prisma o TypeORM) cuando haga falta panel de administración.
 - **Comunicación:** REST. El front consume `NEXT_PUBLIC_API_URL`.

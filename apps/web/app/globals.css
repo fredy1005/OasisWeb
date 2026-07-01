@@ -27,6 +27,15 @@
     @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24;
   }
 
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-gold-600 font-semibold tracking-wide uppercase text-sm mb-4;
+  }
+
+  .eyebrow::before {
+    content: '';
+    @apply w-6 h-[2px] bg-gold-500 rounded-full;
+  }
+
   .section-title {
     @apply text-3xl md:text-4xl lg:text-5xl text-sage-800 mb-4;
   }
@@ -37,14 +46,32 @@
 
   .btn-primary {
     @apply inline-block bg-gold-600 text-white px-8 py-3 rounded-lg font-semibold
-           hover:bg-gold-500 transition-colors duration-200
+           hover:bg-gold-500 hover:shadow-lg hover:shadow-gold-500/30 hover:-translate-y-0.5
+           transition-all duration-200
            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500;
   }
 
   .btn-secondary {
     @apply inline-block border-2 border-sage-600 text-sage-600 px-8 py-3 rounded-lg font-semibold
-           hover:bg-sage-600 hover:text-white transition-colors duration-200
+           hover:bg-sage-600 hover:text-white hover:-translate-y-0.5 transition-all duration-200
            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage-600;
+  }
+
+  .icon-badge {
+    @apply inline-flex items-center justify-center w-14 h-14 rounded-2xl
+           bg-gradient-to-br from-sage-100 to-gold-200 text-sage-600 shrink-0;
+  }
+
+  .glass-card {
+    @apply bg-white/10 backdrop-blur-md border border-white/15;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-gold-500 via-gold-400 to-sage-400 bg-clip-text text-transparent;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-sage-900/10;
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const links = [
   { href: '#espacios', label: 'Espacios' },
@@ -14,11 +15,28 @@ const links = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-40 bg-cream/95 backdrop-blur-sm border-b border-sage-200">
+    <header
+      className={`sticky top-0 z-40 transition-all duration-300 ${
+        scrolled
+          ? 'bg-cream/95 backdrop-blur-md border-b border-sage-200 shadow-sm'
+          : 'bg-cream/70 backdrop-blur-sm border-b border-transparent'
+      }`}
+    >
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2 group">
+          <span className="w-9 h-9 rounded-full bg-gradient-to-br from-sage-500 to-gold-500 flex items-center justify-center text-cream font-serif text-lg shadow-sm group-hover:scale-105 transition-transform">
+            O
+          </span>
           <span className="text-xl font-serif font-bold text-sage-800">Oasis De Vida</span>
         </Link>
 
@@ -37,27 +55,54 @@ export function Navbar() {
           </svg>
         </button>
 
-        <ul
-          className={`${open ? 'flex' : 'hidden'} sm:flex absolute sm:relative top-16 sm:top-0 left-0 w-full sm:w-auto bg-cream sm:bg-transparent flex-col sm:flex-row items-center gap-4 sm:gap-6 p-4 sm:p-0 border-b sm:border-0 border-sage-100 shadow-lg sm:shadow-none`}
-        >
+        <ul className="hidden sm:flex items-center gap-6">
           {links.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="text-sage-700 hover:text-sage-500 transition-colors font-medium"
-                onClick={() => setOpen(false)}
+                className="relative text-sage-700 hover:text-sage-500 transition-colors font-medium group py-2"
               >
                 {link.label}
+                <span className="absolute left-0 -bottom-0.5 h-[2px] w-0 bg-gold-500 rounded-full transition-all duration-300 group-hover:w-full" />
               </Link>
             </li>
           ))}
           <li>
-            <Link href="#contacto" className="btn-primary text-sm py-2 px-5" onClick={() => setOpen(false)}>
+            <Link href="#contacto" className="btn-primary text-sm py-2 px-5">
               Agendar visita
             </Link>
           </li>
         </ul>
       </nav>
+
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="sm:hidden flex flex-col items-center gap-4 p-6 bg-cream border-b border-sage-100 shadow-lg overflow-hidden"
+          >
+            {links.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="text-sage-700 hover:text-sage-500 transition-colors font-medium"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link href="#contacto" className="btn-primary text-sm py-2 px-5" onClick={() => setOpen(false)}>
+                Agendar visita
+              </Link>
+            </li>
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </header>
   )
 }
