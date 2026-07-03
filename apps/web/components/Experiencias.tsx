@@ -1,22 +1,26 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { getBlogPosts, BlogPost } from '@/lib/api'
 import { Reveal } from './Reveal'
 
-const defaultPosts: { title: string; excerpt: string; slug: string }[] = [
+const defaultPosts: { title: string; excerpt: string; slug: string; image: string }[] = [
   {
     title: 'Cómo elegir un hogar geriátrico',
     excerpt: 'Guía práctica para familias que buscan un lugar seguro y cálido para sus seres queridos.',
     slug: 'como-elegir-hogar-geriatrico',
+    image: '/images/experiencias/elegir-hogar.jpg',
   },
   {
     title: 'Los beneficios de la estimulación cognitiva',
     excerpt: 'Actividades diarias que mantienen la mente activa y mejoran la calidad de vida.',
     slug: 'beneficios-estimulacion-cognitiva',
+    image: '/images/experiencias/estimulacion-cognitiva.jpg',
   },
   {
     title: 'El rol de la nutrición en la tercera edad',
     excerpt: 'Cómo una alimentación personalizada contribuye al bienestar y la salud integral.',
     slug: 'nutricion-tercera-edad',
+    image: '/images/experiencias/nutricion.jpg',
   },
 ]
 
@@ -49,12 +53,27 @@ export async function Experiencias() {
               <Link href={`/blog/${post.slug}`} className="group block h-full">
                 <article>
                   <div className="aspect-[16/9] bg-gradient-to-br from-sage-100 to-sage-200 rounded-xl mb-4 flex items-center justify-center text-sage-400 font-serif text-lg overflow-hidden relative">
-                    <div className="absolute inset-0 bg-gradient-to-t from-sage-900/0 to-sage-900/0 group-hover:from-sage-900/10 transition-colors duration-300" />
-                    <div className="p-6 text-center transition-transform duration-500 group-hover:scale-110">
-                      <svg className="w-10 h-10 mx-auto mb-2 text-sage-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z" />
-                      </svg>
-                    </div>
+                    {(post as BlogPost).image ? (
+                      <>
+                        <Image
+                          src={(post as BlogPost).image}
+                          alt={post.title}
+                          fill
+                          sizes="(min-width: 768px) 33vw, 100vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-sage-900/40 to-transparent group-hover:from-sage-900/50 transition-colors duration-300" />
+                      </>
+                    ) : (
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-t from-sage-900/0 to-sage-900/0 group-hover:from-sage-900/10 transition-colors duration-300" />
+                        <div className="p-6 text-center transition-transform duration-500 group-hover:scale-110">
+                          <svg className="w-10 h-10 mx-auto mb-2 text-sage-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z" />
+                          </svg>
+                        </div>
+                      </>
+                    )}
                   </div>
                   <h3 className="text-lg font-serif font-semibold text-sage-800 group-hover:text-sage-500 transition-colors mb-2">
                     {post.title}

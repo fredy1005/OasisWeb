@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Reveal } from './Reveal'
 
@@ -37,6 +38,13 @@ const galeria: Record<Momento, { title: string; desc: string; gradient: string; 
     { title: 'Jardín', desc: 'El jardín se ilumina con faroles. La brisa nocturna invita a la tertulia al aire libre.', gradient: 'from-indigo-300 to-slate-200', time: '8:00 pm' },
     { title: 'Sala de estar', desc: 'Película o serie compartida. El hogar se recoge en calma antes de dormir.', gradient: 'from-purple-200 to-indigo-100', time: '9:30 pm' },
   ],
+}
+
+const fotos: Record<string, string> = {
+  Habitaciones: '/images/espacios/habitaciones.jpg',
+  Comedor: '/images/espacios/comedor.webp',
+  Jardín: '/images/espacios/jardin.jpg',
+  'Sala de estar': '/images/espacios/sala-de-estar.webp',
 }
 
 const iconos: Record<string, JSX.Element> = {
@@ -155,22 +163,51 @@ export function Espacios() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className={`absolute inset-0 bg-gradient-to-br ${destacado.gradient} rounded-3xl border border-white/60 overflow-hidden flex flex-col justify-end p-8 md:p-10`}
+                  className={`absolute inset-0 ${
+                    fotos[destacado.title] ? 'bg-sage-900' : `bg-gradient-to-br ${destacado.gradient}`
+                  } rounded-3xl border border-white/60 overflow-hidden flex flex-col justify-end p-8 md:p-10`}
                 >
-                  <div
-                    className="absolute inset-0 opacity-[0.06] bg-dot-pattern [background-size:18px_18px] text-sage-900"
-                    aria-hidden="true"
-                  />
+                  {fotos[destacado.title] ? (
+                    <>
+                      <Image
+                        src={fotos[destacado.title]}
+                        alt={destacado.title}
+                        fill
+                        sizes="(min-width: 1024px) 60vw, 100vw"
+                        className="object-cover"
+                        priority={false}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-sage-900/85 via-sage-900/20 to-transparent" />
+                    </>
+                  ) : (
+                    <div
+                      className="absolute inset-0 opacity-[0.06] bg-dot-pattern [background-size:18px_18px] text-sage-900"
+                      aria-hidden="true"
+                    />
+                  )}
                   <div className="absolute top-6 right-6 bg-white/85 backdrop-blur-sm text-sage-700 text-sm font-medium px-3 py-1.5 rounded-full shadow-sm">
                     {destacado.time}
                   </div>
-                  <span className="w-16 h-16 mb-6 text-sage-600/90" aria-hidden="true">
+                  <span
+                    className={`relative w-16 h-16 mb-6 ${fotos[destacado.title] ? 'text-white' : 'text-sage-600/90'}`}
+                    aria-hidden="true"
+                  >
                     {iconos[destacado.title]}
                   </span>
-                  <h3 className="text-2xl md:text-3xl font-serif font-semibold text-sage-800 mb-3">
+                  <h3
+                    className={`relative text-2xl md:text-3xl font-serif font-semibold mb-3 ${
+                      fotos[destacado.title] ? 'text-white' : 'text-sage-800'
+                    }`}
+                  >
                     {destacado.title}
                   </h3>
-                  <p className="text-sage-700/85 text-[17px] leading-relaxed max-w-md">{destacado.desc}</p>
+                  <p
+                    className={`relative text-[17px] leading-relaxed max-w-md ${
+                      fotos[destacado.title] ? 'text-white/85' : 'text-sage-700/85'
+                    }`}
+                  >
+                    {destacado.desc}
+                  </p>
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -191,11 +228,15 @@ export function Espacios() {
                     }`}
                   >
                     <span
-                      className={`w-11 h-11 shrink-0 rounded-full flex items-center justify-center transition-colors ${
+                      className={`relative w-11 h-11 shrink-0 rounded-full overflow-hidden flex items-center justify-center transition-colors ${
                         active ? 'bg-white/15 text-white' : 'bg-sage-100 text-sage-600 group-hover:bg-sage-200'
                       }`}
                     >
-                      <span className="w-5 h-5 block">{iconos[esp.title]}</span>
+                      {fotos[esp.title] ? (
+                        <Image src={fotos[esp.title]} alt="" fill sizes="44px" className="object-cover" />
+                      ) : (
+                        <span className="w-5 h-5 block">{iconos[esp.title]}</span>
+                      )}
                     </span>
                     <span className="flex-1 min-w-0">
                       <span className={`block font-serif font-semibold ${active ? 'text-white' : 'text-sage-800'}`}>

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 const trust = [
@@ -32,9 +33,10 @@ const trust = [
 
 export function Hero() {
   return (
-    <section className="relative bg-gradient-to-br from-deep-green via-sage-800 to-sage-700 text-cream overflow-hidden">
+    <section className="relative bg-gradient-to-br from-deep-green via-sage-700 to-gold-600 text-cream overflow-hidden">
       {/* Organic animated background blobs */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute inset-0 bg-gradient-to-tr from-deep-green via-transparent to-transparent" />
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-gold-500/20 rounded-full blur-3xl animate-blob" />
         <div className="absolute top-1/3 -right-32 w-[28rem] h-[28rem] bg-sage-400/20 rounded-full blur-3xl animate-blob [animation-delay:4s]" />
         <div className="absolute -bottom-32 left-1/4 w-96 h-96 bg-deep-teal/30 rounded-full blur-3xl animate-blob [animation-delay:8s]" />
@@ -43,7 +45,8 @@ export function Hero() {
       </div>
 
       <div className="container-section relative min-h-[85vh] flex items-center">
-        <div className="max-w-3xl">
+        <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12">
+          <div className="max-w-3xl">
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -113,6 +116,62 @@ export function Hero() {
               </span>
             ))}
           </motion.div>
+
+          {/* Mobile / tablet photo banner — keeps the hero from feeling flat below the lg breakpoint */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="lg:hidden relative mt-10 aspect-[16/9] sm:aspect-[21/9] rounded-2xl overflow-hidden border border-white/15 shadow-xl shadow-black/30"
+          >
+            <Image
+              src="/images/hero/cuidado.jpg"
+              alt="Cuidado personalizado en Oasis De Vida"
+              fill
+              sizes="(min-width: 640px) 640px, 100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-deep-green/80 via-deep-green/10 to-transparent" />
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="hidden lg:block relative w-full max-w-sm shrink-0"
+        >
+          <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/15 shadow-2xl shadow-black/40">
+            <Image
+              src="/images/hero/cuidado.jpg"
+              alt="Cuidado personalizado en Oasis De Vida"
+              fill
+              sizes="384px"
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-deep-green/80 via-deep-green/10 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-br from-gold-400/10 via-transparent to-transparent" />
+          </div>
+
+          {/* Floating accent card for visual depth */}
+          <motion.div
+            initial={{ opacity: 0, y: 16, rotate: -6 }}
+            animate={{ opacity: 1, y: 0, rotate: -4 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+            className="absolute -left-10 -bottom-8 w-36 rounded-2xl overflow-hidden border-4 border-cream shadow-2xl shadow-black/50"
+          >
+            <div className="relative aspect-square">
+              <Image
+                src="/images/hero/comunidad.webp"
+                alt="Vida en comunidad en Oasis De Vida"
+                fill
+                sizes="144px"
+                className="object-cover"
+              />
+            </div>
+          </motion.div>
+        </motion.div>
         </div>
       </div>
 
