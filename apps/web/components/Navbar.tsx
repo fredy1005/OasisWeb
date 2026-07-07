@@ -8,6 +8,7 @@ const links = [
   { href: '#espacios', label: 'Espacios' },
   { href: '#servicios', label: 'Servicios' },
   { href: '#undia', label: 'Un día' },
+  { href: '#avales', label: 'Avales' },
   { href: '#experiencias', label: 'Experiencias' },
   { href: '#faq', label: 'FAQ' },
   { href: '#contacto', label: 'Contacto' },
