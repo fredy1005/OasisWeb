@@ -15,7 +15,9 @@ const momentos = [
     actividades: [
       'Despertar y asistencia personalizada',
       'Desayuno comunitario',
+      'Toma de medicamentos',
       'Actividades de estimulación cognitiva',
+      'A media mañana',
       'Terapia física / kinesiología',
     ],
   },
@@ -29,7 +31,9 @@ const momentos = [
     border: 'border-sky-200',
     actividades: [
       'Almuerzo con menú personalizado',
+      'Toma de medicamentos',
       'Siesta o descanso',
+      'Onces',
       'Talleres recreativos (música, jardinería, lectura)',
       'Merienda y visita de familiares',
     ],

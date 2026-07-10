@@ -8,21 +8,23 @@ const defaultPosts: { title: string; excerpt: string; slug: string; image: strin
     title: 'Cómo elegir un hogar geriátrico',
     excerpt: 'Guía práctica para familias que buscan un lugar seguro y cálido para sus seres queridos.',
     slug: 'como-elegir-hogar-geriatrico',
-    image: '/images/experiencias/elegir-hogar.jpg',
+    image: '/images/experiencias/experiencia1.jpg',
   },
   {
     title: 'Los beneficios de la estimulación cognitiva',
     excerpt: 'Actividades diarias que mantienen la mente activa y mejoran la calidad de vida.',
     slug: 'beneficios-estimulacion-cognitiva',
-    image: '/images/experiencias/estimulacion-cognitiva.jpg',
+    image: '/images/experiencias/experiencia2.jpg',
   },
   {
     title: 'El rol de la nutrición en la tercera edad',
     excerpt: 'Cómo una alimentación personalizada contribuye al bienestar y la salud integral.',
     slug: 'nutricion-tercera-edad',
-    image: '/images/experiencias/nutricion.jpg',
+    image: '/images/experiencias/experiencia4.jpg',
   },
 ]
+
+const localImages = defaultPosts.map((p) => p.image)
 
 export async function Experiencias() {
   let posts: BlogPost[] = []
@@ -32,7 +34,9 @@ export async function Experiencias() {
     posts = []
   }
 
-  const displayPosts = posts.length > 0 ? posts.slice(0, 3) : defaultPosts
+  const displayPosts = posts.length > 0
+    ? (posts.slice(0, 3) as (BlogPost & { image: string })[]).map((p, i) => ({ ...p, image: localImages[i] || p.image }))
+    : defaultPosts
 
   return (
     <section id="experiencias" className="bg-cream">
@@ -75,10 +79,10 @@ export async function Experiencias() {
                       </>
                     )}
                   </div>
-                  <h3 className="text-lg font-serif font-semibold text-sage-800 group-hover:text-sage-500 transition-colors mb-2">
+                  <h3 className="text-xl font-serif font-semibold text-sage-800 group-hover:text-sage-500 transition-colors mb-2">
                     {post.title}
                   </h3>
-                  <p className="text-[16px] text-sage-600/80 mb-3 leading-relaxed">{post.excerpt}</p>
+                  <p className="text-[18px] text-sage-600/80 mb-3 leading-relaxed">{post.excerpt}</p>
                   <span className="text-sm text-sage-500 flex items-center gap-1 group-hover:gap-2 transition-all">
                     Leer más
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

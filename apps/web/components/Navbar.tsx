@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -35,8 +36,14 @@ export function Navbar() {
     >
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
-          <span className="w-9 h-9 rounded-full bg-gradient-to-br from-sage-500 to-gold-500 flex items-center justify-center text-cream font-serif text-lg shadow-sm group-hover:scale-105 transition-transform">
-            O
+          <span className="w-9 h-9 rounded-full overflow-hidden shadow-sm group-hover:scale-105 transition-transform shrink-0">
+            <Image
+              src="/images/logo.jpg"
+              alt="Oasis De Vida"
+              width={36}
+              height={36}
+              className="w-full h-full object-cover rounded-full"
+            />
           </span>
           <span className="text-xl font-serif font-bold text-sage-800">Oasis De Vida</span>
         </Link>
